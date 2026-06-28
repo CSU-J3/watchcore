@@ -78,6 +78,12 @@ class ParquetStore:
     def _glob(self) -> str:
         return (self.root / "observed_at_date=*" / "data.parquet").as_posix()
 
+    def dataset_glob(self) -> str:
+        """Public glob over every partition file. The read-side query helpers in
+        ``watchcore.query`` use this so they can push filters into DuckDB without
+        reaching into a private."""
+        return self._glob()
+
     def partition_dates(self) -> list[str]:
         if not self.root.exists():
             return []
