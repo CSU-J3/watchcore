@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "watchcore"
+dynamic = ["version"]
+description = "Shared core for OSINT watch projects: the Observation contract and the ingest pipeline that sits under each watch."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2",
+]
+
+[project.optional-dependencies]
+dedup = ["datasketch>=1.6"]
+dev = ["pytest>=8"]
+
+[tool.hatch.version]
+path = "src/watchcore/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/watchcore"]
